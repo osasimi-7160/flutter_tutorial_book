@@ -1,5 +1,5 @@
 # rss_app
-
+Flutter入門　中身を動作確認していく
 A new Flutter application.
 
 ## Getting Started
