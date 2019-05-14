@@ -1,0 +1,5031 @@
+﻿Flutter入門
+
+
+掲載リスト
+
+
+
+
+リスト2-1
+import 'package:flutter/material.dart';
+
+
+void main() => runApp(new MyApp());
+
+
+class MyApp extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+
+
+    return new MaterialApp(
+      title: 'Flutter Demo',
+      home: Text(
+        'Hello, Flutter World!!',
+        style: TextStyle(fontSize:32.0),
+       ),
+    );
+  }
+}
+
+
+
+
+リスト2-2
+import 'package:flutter/material.dart';
+
+
+void main() => runApp(new MyApp());
+
+
+class MyApp extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+
+
+    return new MaterialApp(
+      title: 'Flutter Demo',
+
+
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Hello Flutter!'),
+        ),
+        body: Text(
+          'Hello Flutter World!!',
+          style: TextStyle(fontSize:32.0),
+        ),
+
+
+      ),
+    );
+  }
+}
+
+
+
+
+リスト2-3
+import 'package:flutter/material.dart';
+
+
+void main() => runApp(new MyApp());
+
+
+class MyApp extends StatelessWidget {
+  final title = 'Flutterサンプル';
+  final message = 'サンプル・メッセージ。';
+  
+  @override
+  Widget build(BuildContext context) {
+
+
+    return new MaterialApp(
+      title: 'Flutter Demo',
+      home: new MyHomePage(
+        title:this.title, 
+        message:this.message
+      ),
+    );
+  }
+}
+
+
+class MyHomePage extends StatefulWidget {
+  final String title;
+  final String message;
+
+
+  MyHomePage({this.title, this.message}): super();
+
+
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+
+class _MyHomePageState extends State<MyHomePage> {
+
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return Scaffold(
+
+
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+
+
+      body: Text(
+        widget.message,
+        style: TextStyle(fontSize:32.0),
+       ),
+
+
+    );
+
+
+  }
+}
+
+
+
+
+リスト2-4
+import 'package:flutter/material.dart';
+
+
+void main() => runApp(new MyApp());
+
+
+class MyApp extends StatelessWidget {
+  final title = 'Flutterサンプル';
+
+
+  
+  @override
+  Widget build(BuildContext context) {
+
+
+    return new MaterialApp(
+      title: 'Flutter Demo',
+      home: new MyHomePage(
+        title:this.title, 
+      ),
+    );
+  }
+}
+
+
+class MyHomePage extends StatefulWidget {
+
+
+  MyHomePage({this.title}): super();
+
+
+  final String title;
+  
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+
+class _MyHomePageState extends State<MyHomePage> {
+  String _message;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _message = 'Hello!';
+  }
+  
+  void _setMessage() {
+    setState(() {
+      _message = 'タップしました！';
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return Scaffold(
+
+
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+
+
+      body: Text(
+        _message,
+        style: TextStyle(fontSize:32.0),
+       ),
+
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: _setMessage,
+        tooltip: 'set message.',
+        child: Icon(Icons.star),
+      ),
+
+
+    );
+  }
+}
+
+
+
+
+リスト2-5
+class MyHomePage extends StatefulWidget {
+
+
+  MyHomePage({this.title}): super();
+
+
+  final String title;
+  
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+
+// データ用クラス
+class Data {
+  int _price;
+  String _name;
+
+
+  Data(this._name, this._price): super();
+
+
+  @override
+  String toString() {
+    return _name + ':' + _price.toString() + '円';
+  }
+}
+
+
+class _MyHomePageState extends State<MyHomePage> {
+  // サンプルデータ
+  static final _data = [
+    Data('Apple',200),
+    Data('Orange', 150),
+    Data('Peach', 300)
+  ];
+  Data _item;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _item = _data[0];
+  }
+
+
+  void _setData() {
+    setState(() {
+      _item = (_data..shuffle()).first;
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return Scaffold(
+
+
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+
+
+      body: Text(
+        _item.toString(),
+        style: TextStyle(fontSize:32.0),
+       ),
+
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: _setData,
+        tooltip: 'set message.',
+        child: Icon(Icons.star),
+      ),
+
+
+    );
+
+
+  }
+
+
+}
+
+
+
+
+リスト2-6
+import 'package:flutter/material.dart';
+
+
+void main() => runApp(new MyApp());
+
+
+class MyApp extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    
+    return new MaterialApp(
+      title: 'Flutter Demo',
+      theme: new ThemeData(
+         primarySwatch: Colors.blue,
+      ),
+      home: new MyHomePage(title: 'Flutterサンプルアプリ'),
+    );
+  }
+}
+
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+  final String title;
+
+
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+
+
+      body: Center(
+
+
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+
+
+          children: <Widget>[
+            Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.display1,
+            ),
+          ],
+        ),
+      ),
+
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+
+
+
+リスト2-7
+import 'package:flutter_test/flutter_test.dart';
+
+
+import 'package:flutter_app/main.dart';
+
+
+void main() {
+  testWidgets('flutte_app sample test!', (WidgetTester tester) async {
+
+
+    await tester.pumpWidget(new MyApp());
+    await tester.pump();
+ });
+}
+
+
+
+
+リスト2-8
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+
+import 'package:flutter_app/main.dart';
+
+
+void main() {
+  testWidgets('flutte_app sample test!', (WidgetTester tester) async {
+
+
+    await tester.pumpWidget(new MyApp());
+    await tester.pump();
+
+
+    expect(find.text('0'), findsOneWidget);
+    expect(find.byIcon(Icons.add), findsOneWidget);
+
+
+ });
+}
+
+
+
+
+リスト2-9
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+
+import 'package:flutter_app/main.dart';
+
+
+void main() {
+  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(new MyApp());
+
+
+    // Verify that our counter starts at 0.
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
+
+
+    // Tap the '+' icon and trigger a frame.
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump();
+
+
+    // Verify that our counter has incremented.
+    expect(find.text('0'), findsNothing);
+    expect(find.text('1'), findsOneWidget);
+  });
+}
+
+
+
+
+リスト3-1
+import 'package:flutter/material.dart';
+
+
+void main() {
+  runApp(new MyApp());
+}
+class MyApp extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      title: 'Generated App',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+        primaryColor: const Color(0xFF2196f3),
+        accentColor: const Color(0xFF2196f3),
+        canvasColor: const Color(0xFFfafafa),
+      ),
+      home: new MyHomePage(),
+    );
+  }
+}
+
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key}) : super(key: key);
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+
+class _MyHomePageState extends State<MyHomePage> {
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+          ),
+        body:
+          Text(
+          "Hello Flutter!",
+            style: TextStyle(fontSize:32.0,
+            color: const Color(0xFF000000),
+            fontWeight: FontWeight.w700,
+            fontFamily: "Roboto"),
+          ),
+    
+      );
+    }
+    void fabPressed() {}
+}
+
+
+
+
+リスト3-2
+class MyApp extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      title: 'Generated App',
+      theme: new ThemeData(
+        primarySwatch: Colors.pink,
+        primaryColor: const Color(0xFFe91e63),
+        accentColor: const Color(0xFFe91e63),
+        canvasColor: const Color(0xFFfafafa),
+      ),
+      home: new MyHomePage(),
+    );
+  }
+}
+
+
+
+
+リスト3-3
+class _MyHomePageState extends State<MyHomePage> {
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+          ),
+        body:
+          Center(
+            child:
+              Text(
+              "Hello Flutter!",
+                style: TextStyle(fontSize:32.0,
+                color: const Color(0xFF000000),
+                fontWeight: FontWeight.w700,
+                fontFamily: "Roboto"),
+              ),
+          ),
+      );
+    }
+    void fabPressed() {}
+}
+
+
+
+
+リスト3-4
+class _MyHomePageState extends State<MyHomePage> {
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+          ),
+        body:
+          Container(
+            child:
+              Text(
+              "Hello Flutter!",
+                style: TextStyle(fontSize:32.0,
+                color: const Color(0xFF000000),
+                fontWeight: FontWeight.w700,
+                fontFamily: "Roboto"),
+              ),
+            padding: const EdgeInsets.all(10.0),
+            alignment: Alignment.bottomCenter,
+          ),
+      );
+    }
+    void fabPressed() {}
+}
+
+
+
+
+リスト3-5
+alignment: const Alignment(0.0, -0.5),
+
+
+
+
+リスト3-6
+class _MyHomePageState extends State<MyHomePage> {
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+          ),
+        body:
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+              "One",
+                style: TextStyle(fontSize:32.0,
+                color: const Color(0xFF000000),
+                fontWeight: FontWeight.w400,
+                fontFamily: "Roboto"),
+              ),
+    
+              Text(
+              "Two",
+                style: TextStyle(fontSize:32.0,
+                color: const Color(0xFF000000),
+                fontWeight: FontWeight.w400,
+                fontFamily: "Roboto"),
+              ),
+    
+              Text(
+              "Three",
+                style: TextStyle(fontSize:32.0,
+                color: const Color(0xFF000000),
+                fontWeight: FontWeight.w400,
+                fontFamily: "Roboto"),
+              )
+            ]
+    
+          ),
+    
+      );
+    }
+    void fabPressed() {}
+    
+}
+
+
+
+
+リスト3-7
+class _MyHomePageState extends State<MyHomePage> {
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+        ),
+        body:
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+              "One",
+                style: TextStyle(fontSize:32.0,
+                color: const Color(0xFF000000),
+                fontWeight: FontWeight.w400,
+                fontFamily: "Roboto"),
+              ),
+    
+              Text(
+              "Two",
+                style: TextStyle(fontSize:32.0,
+                color: const Color(0xFF000000),
+                fontWeight: FontWeight.w400,
+                fontFamily: "Roboto"),
+              ),
+    
+              Text(
+              "Three",
+                style: TextStyle(fontSize:32.0,
+                color: const Color(0xFF000000),
+                fontWeight: FontWeight.w400,
+                fontFamily: "Roboto"),
+              )
+            ]
+    
+          ),
+    
+      );
+    }
+    void fabPressed() {}
+    
+}
+
+
+
+
+リスト3-8
+class _MyHomePageState extends State<MyHomePage> {
+
+
+  var _stackData = <Widget>[
+      Container(
+        color: Colors.red,
+        width:200.0,
+        height:200.0,
+        child:Text(
+          "One",
+            style: TextStyle(fontSize:32.0,
+            fontWeight: FontWeight.w400,
+            fontFamily: "Roboto"),
+          ),
+      ),
+      Container(
+        color: Colors.green,
+        width:200.0,
+        height:200.0,
+        child:Text(
+          "Two",
+            style: TextStyle(fontSize:32.0,
+            fontWeight: FontWeight.w400,
+            fontFamily: "Roboto"),
+          ),
+      ),
+      Container(
+        color: Colors.blue,
+        width:200.0,
+        height:200.0,
+        child:Text(
+          "Three",
+            style: TextStyle(fontSize:32.0,
+            fontWeight: FontWeight.w400,
+            fontFamily: "Roboto"),
+          ),
+      ),
+    ];
+
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+          ),
+        body:
+          Stack(
+            children: _stackData
+          ),
+    
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.android),
+          onPressed: fabPressed),
+        );
+
+
+    }
+    void fabPressed() {
+      setState(() {
+        _stackData.insert(0, _stackData.removeLast());
+      });
+    }
+    
+}
+
+
+
+
+リスト3-9
+class _MyHomePageState extends State<MyHomePage> {
+
+
+  var _gridData = <Widget>[
+    Container(
+      color: Colors.red,
+      child:
+        Text(
+        "One",
+          style: TextStyle(fontSize:32.0,
+          fontWeight: FontWeight.w400,
+          fontFamily: "Roboto"),
+        ),
+    ),
+    
+    ……必要なだけウィジェットを用意する……
+
+
+  ];
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('App Name'),
+        ),
+      body:
+        GridView.count(
+          crossAxisCount: 2,
+          mainAxisSpacing: 10.0,
+          crossAxisSpacing: 10.0,
+          padding: const EdgeInsets.all(10.0),
+          children: _gridData,
+        ),
+
+
+    );
+  }
+
+
+  void fabPressed() {}
+}
+
+
+
+
+リスト3-10
+GridView.count(
+  crossAxisCount: 3,
+  mainAxisSpacing: 10.0,
+  crossAxisSpacing: 10.0,
+  padding: const EdgeInsets.all(10.0),
+  children: _gridData,
+  ),
+
+
+
+
+リスト3-11
+class _MyHomePageState extends State<MyHomePage> {
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+          ),
+        body:
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+
+
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Left',
+                    style: TextStyle(fontSize:32.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto"),
+                  ),
+                ),
+    
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                'Center',
+                  style: TextStyle(fontSize:32.0,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: "Roboto"),
+                ),
+              ),
+
+
+              Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                'Right',
+                  style: TextStyle(fontSize:32.0,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: "Roboto"),
+                ),
+              ),
+            ]
+    
+          ),
+    
+      );
+    }
+    void fabPressed() {}
+    
+}
+
+
+
+
+リスト3-12
+class _MyHomePageState extends State<MyHomePage> {
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+          ),
+        body:
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+                
+                Expanded(
+                  child:Container(
+                    color: Color.fromARGB(255, 255, 255, 0),
+                    child: Text(
+                      'First item',
+                      style: TextStyle(fontSize:32.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Roboto"),
+                    ),
+                  ),
+                ),
+              
+                Expanded(
+                  child:Container(
+                    color: Color.fromARGB(255, 255, 125, 0),
+                    child: Text(
+                      'Second item',
+                      style: TextStyle(fontSize:32.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Roboto"),
+                    ),
+                  ),
+                ),
+
+
+                Expanded(
+                  child:Container(
+                    color: Color.fromARGB(255, 255, 0, 0),
+                    child: Text(
+                      'Third item',
+                      style: TextStyle(fontSize:32.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Roboto"),
+                    ),
+                  ),
+                ),
+            ]
+    
+          ),
+    
+      );
+    }
+    void fabPressed() {}
+    
+}
+
+
+
+
+リスト3-13
+class _MyHomePageState extends State<MyHomePage> {
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+          ),
+        body:
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+                
+                Expanded(
+                  child:Container(
+                    color: Color.fromARGB(255, 255, 255, 0),
+                    child: Text(
+                      'First item',
+                      style: TextStyle(fontSize:32.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Roboto"),
+                    ),
+                  ),
+                ),
+
+
+                Padding(
+                  padding: EdgeInsets.all(25.0),
+                ),
+
+
+                Expanded(
+                  child:Container(
+                    color: Color.fromARGB(255, 255, 125, 0),
+                    child: Padding(
+                      padding: EdgeInsets.all(25.0),
+                      child:Text(
+                        'Second item',
+                        style: TextStyle(fontSize:32.0,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Roboto"),
+                      ),
+                    ),
+                  ),
+                ),
+
+
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(25.0),
+                    child:Container(
+                      color: Color.fromARGB(255, 255, 0, 0),
+                      child: Text(
+                        'Third item',
+                        style: TextStyle(fontSize:32.0,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Roboto"),
+                      ),
+                    ),
+                  ),
+                ),
+            ]
+    
+          ),
+    
+      );
+    }
+    void fabPressed() {}
+    
+}
+
+
+
+
+リスト3-14
+class _MyHomePageState extends State<MyHomePage> {
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+          ),
+        body:
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+                SizedBox(
+                  width: 200.0,
+                  height: 100.0,
+                  child:Container(
+                    color: Colors.yellow,
+                    child: Text(
+                      'First item',
+                      style: TextStyle(fontSize:32.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Roboto"),
+                    ),
+                  ),
+                ),
+               
+                SizedBox(
+                  width:100.0,
+                  height: 200.0,
+                  child:Container(
+                    color: Colors.red,
+                    child: Text(
+                      'Second item',
+                      style: TextStyle(fontSize:32.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Roboto"),
+                    ),
+                  ),
+                ),
+            ]
+    
+          ),
+    
+      );
+    }
+    void fabPressed() {}
+    
+}
+
+
+
+
+リスト3-15
+class _MyHomePageState extends State<MyHomePage> {
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+          ),
+        body:
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+                FractionallySizedBox(
+                  widthFactor: 0.25,
+                  child:Container(
+                    color: Colors.yellow,
+                    child: Text(
+                      'First item',
+                      style: TextStyle(fontSize:32.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Roboto"),
+                    ),
+                  ),
+                ),
+               
+                FractionalTranslation(
+                  translation: Offset(1.0,1.0),
+                  child:Container(
+                    color: Colors.red,
+                    child: Text(
+                      'Second item',
+                      style: TextStyle(fontSize:32.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Roboto"),
+                    ),
+                  ),
+                ),
+
+
+            ]
+    
+          ),
+    
+      );
+    }
+    void fabPressed() {}
+    
+}
+
+
+
+
+リスト3-16
+class _MyHomePageState extends State<MyHomePage> {
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+          ),
+        body:
+          Center(
+            child:
+              Card(
+                margin: EdgeInsets.all(50.0),
+                child:
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    
+                    children: <Widget>[
+                      Text( 
+                        "Hello!",
+                        style: TextStyle(fontSize:32.0,
+                        color: const Color(0xFF000000),
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Roboto"),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                      ),
+                      Text(
+                        "This is Card Layout. " * 5,
+                        style: TextStyle(fontSize:24.0,
+                        color: const Color(0xFF0000FF),
+                        fontWeight: FontWeight.w200,
+                        fontFamily: "Roboto"),
+                      )
+                    ]
+    
+                  ),
+    
+              ),
+    
+          ),
+    
+      );
+    }
+    void fabPressed() {}
+    
+}
+
+
+
+
+リスト4-1
+class _MyHomePageState extends State<MyHomePage> {
+  var _message;
+  static var _janken = <String>['グー','チョキ','パー'];
+
+
+  @override
+  void initState() {
+    _message = 'ok.';
+    super.initState();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('App Name'),
+        ),
+      body:
+        Center(
+          child:
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+
+
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Text(
+                  _message,
+                    style: TextStyle(fontSize:32.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto"),
+                  ),
+                ),
+  
+                FlatButton(key:null, 
+                  onPressed:buttonPressed,
+                  color: Colors.black12,
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                      child:Text(
+                        "Push me!",
+                        style: TextStyle(fontSize:32.0,
+                        color: const Color(0xFF000000),
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Roboto"),
+                      )
+                    )
+                  )
+              ]
+  
+            ),
+        ),
+  
+    );
+  }
+  void buttonPressed(){
+    setState((){
+      _message = (_janken..shuffle()).first;
+    });
+  }
+        
+}
+
+
+
+
+リスト4-2
+FlatButton(key:null, 
+  onPressed:buttonPressed,
+  color: Colors.black12,
+  child: Padding(
+    padding: EdgeInsets.all(10.0),
+      child:Icon (
+        Icons.android,
+        size: 50.0,
+      )
+    )
+  )
+
+
+
+
+リスト4-3
+void buttonPressed(){
+  setState((){
+    _message = (_janken..shuffle()).first;
+  });
+}
+
+
+
+
+リスト4-4
+RaisedButton( 
+  onPressed:buttonPressed,
+  child: Padding(
+    padding: EdgeInsets.all(10.0),
+    child:Icon (
+      Icons.android,
+      size: 50.0,
+    )
+  )
+)
+
+
+
+
+リスト4-5
+IconButton(
+  icon: const Icon(Icons.insert_emoticon),
+  iconSize: 100.0,
+  color: Colors.red,
+  onPressed:buttonPressed,
+)
+
+
+
+
+リスト4-6
+FloatingActionButton(
+  child: Icon(Icons.android),
+  onPressed: buttonPressed
+),
+
+
+
+
+リスト4-7
+RawMaterialButton(
+  fillColor: Colors.white,
+  elevation: 10.0,
+  padding: EdgeInsets.all(10.0),
+  child: Text(
+        "Push me!",
+        style: TextStyle(fontSize:32.0,
+        color: const Color(0xFF000000),
+        fontWeight: FontWeight.w400,
+        fontFamily: "Roboto"),
+      ),
+  onPressed: buttonPressed
+),
+
+
+
+
+リスト4-8
+class _MyHomePageState extends State<MyHomePage> {
+  var _message;
+  final controller = TextEditingController();
+
+
+  @override
+  void initState() {
+    _message = 'ok.';
+    super.initState();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('App Name'),
+        ),
+      body:
+        Center(
+          child:
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+
+
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Text(
+                  _message,
+                    style: TextStyle(fontSize:32.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto"),
+                  ),
+                ),
+
+
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                    child: TextField(
+                      controller: controller,
+                      style: TextStyle(fontSize:28.0,
+                      color: const Color(0xFFFF0000),
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Roboto"),
+                  ),
+                ),
+  
+                FlatButton(
+                  padding: EdgeInsets.all(10.0),
+                  color: Colors.lightBlueAccent,
+                  child: Text(
+                        "Push me!",
+                        style: TextStyle(fontSize:32.0,
+                        color: const Color(0xFF000000),
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Roboto"),
+                      ),
+                  onPressed: buttonPressed
+                ),
+              ],
+          ),
+        ),
+    );
+  }
+  void buttonPressed(){
+    setState((){
+      _message = 'you said: ' + controller.text;
+    });
+  }
+        
+}
+
+
+
+
+リスト4-9
+class _MyHomePageState extends State<MyHomePage> {
+  var _message;
+  final controller = TextEditingController();
+
+
+  @override
+  void initState() {
+    _message = 'ok.';
+    super.initState();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('App Name'),
+        ),
+      body:
+        Center(
+          child:
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+
+
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Text(
+                  _message,
+                    style: TextStyle(fontSize:32.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto"),
+                  ),
+                ),
+
+
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                    child: TextField(
+                      onChanged: textChanged,
+                      controller: controller,
+                      style: TextStyle(fontSize:28.0,
+                      color: const Color(0xFFFF0000),
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Roboto"),
+                  ),
+                ),
+              ],
+          ),
+        ),
+    );
+  }
+  void textChanged(String val){
+    setState((){
+      _message = val.toUpperCase();
+    });
+  }
+        
+}
+
+
+
+
+リスト4-10
+class _MyHomePageState extends State<MyHomePage> {
+    String _message;
+    bool _checked = false;
+
+
+    @override
+    void initState() {
+      _message = 'ok.';
+      super.initState();
+    }
+
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+          ),
+        body:
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+              _message,
+                style: TextStyle(fontSize:32.0,
+                fontWeight: FontWeight.w400,
+                fontFamily: "Roboto"),
+              ),
+
+
+              Padding(
+                padding: EdgeInsets.all(10.0),
+              ),
+    
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                
+                children: <Widget>[
+
+
+                  Checkbox(
+                    value:_checked,
+                    onChanged: checkChanged, 
+                  ),
+    
+                  Text(
+                  "check",
+                    style: TextStyle(fontSize:28.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto"),
+                  )
+                ]
+    
+              )
+            ]
+    
+          ),
+    
+      );
+    }
+
+
+    void checkChanged(bool value){
+      setState(() {
+        _checked = value;
+        _message = value ? 'checked!' : 'not checked...';
+      });
+    }
+  
+}
+
+
+
+
+リスト4-11
+Switch(
+  value:_checked,
+  onChanged: checkChanged, 
+),
+
+
+
+
+リスト4-12
+class _MyHomePageState extends State<MyHomePage> {
+    String _message;
+    String _selected = 'A';
+
+
+    @override
+    void initState() {
+      _message = 'ok.';
+      super.initState();
+    }
+
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+          ),
+        body:
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+              _message,
+                style: TextStyle(fontSize:32.0,
+                fontWeight: FontWeight.w400,
+                fontFamily: "Roboto"),
+              ),
+
+
+              Padding(
+                padding: EdgeInsets.all(10.0),
+              ),
+    
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                
+                children: <Widget>[
+
+
+                  Radio<String>(
+                    value: 'A',
+                    groupValue: _selected,
+                    onChanged: (String value)=> checkChanged(value), 
+                  ),
+                  Text(
+                  "radio A",
+                    style: TextStyle(fontSize:28.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto"),
+                  )
+                ]
+              ),
+
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                
+                children: <Widget>[
+
+
+                  Radio<String>(
+                    value: 'B',
+                    groupValue: _selected,
+                    onChanged: (String value)=> checkChanged(value), 
+                  ),
+                  Text(
+                  "radio B",
+                    style: TextStyle(fontSize:28.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto"),
+                  )
+                ]
+              ),
+            ]
+          ),
+      );
+    }
+
+
+    void checkChanged(String value){
+      setState(() {
+        _selected = value;
+        _message = 'select: $_selected';
+      });
+    }
+
+
+}
+
+
+
+
+リスト4-13
+class _MyHomePageState extends State<MyHomePage> {
+    String _message;
+    String _selected = 'One';
+
+
+    @override
+    void initState() {
+      _message = 'ok.';
+      super.initState();
+    }
+
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+        ),
+        body:
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+
+
+            children: <Widget>[
+
+
+              Text(
+              _message,
+                style: TextStyle(fontSize:32.0,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Roboto'),
+              ),
+
+
+              Padding(
+                padding: EdgeInsets.all(10.0),
+              ),
+    
+              DropdownButton<String>(
+                onChanged: (String value)=> popupSelected(value),
+                value: _selected,
+                style: TextStyle(color:Colors.black,
+                  fontSize:28.0,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Roboto'),
+
+
+                items: <DropdownMenuItem<String>>[
+
+
+                  const DropdownMenuItem<String>(value: 'One',
+                    child: const Text('One')),
+
+
+                  const DropdownMenuItem<String>(value: 'Two',
+                    child: const Text('Two')),
+
+
+                  const DropdownMenuItem<String>(value: 'Three',
+                    child: const Text('Three')),
+                ],
+              ),
+    
+            ],
+
+
+          ),
+      );
+    }
+
+
+    void popupSelected(String value){
+      setState(() {
+        _selected = value;
+        _message = 'select: $_selected';
+      });
+    }
+
+
+}
+
+
+
+
+リスト4-14
+Align(alignment: Alignment.centerRight, 
+  child: PopupMenuButton(
+    onSelected: (String value)=> popupSelected(value),
+    itemBuilder: (BuildContext context) =>
+    <PopupMenuEntry<String>>[
+      const PopupMenuItem( child: const Text("One"), value: "One",),
+      const PopupMenuItem( child: const Text("Two"), value: "Two",),
+      const PopupMenuItem( child: const Text("Three"), value: "Three",),
+    ],
+  ),
+),
+
+
+
+
+リスト4-15
+class _MyHomePageState extends State<MyHomePage> {
+    String _message;
+    double _value = 0.0;
+
+
+    @override
+    void initState() {
+      _message = 'ok.';
+      super.initState();
+    }
+
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+        ),
+        body:
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+
+
+              Text(
+              _message,
+                style: TextStyle(fontSize:32.0,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Roboto'),
+              ),
+
+
+              Padding(
+                padding: EdgeInsets.all(10.0),
+              ),
+
+
+              Slider(
+                onChanged: sliderChanged,
+                min: 0.0,
+                max: 100.0,
+                divisions: 20,
+                value:_value,
+              ),
+    
+            ],
+          ),
+      );
+    }
+
+
+    void sliderChanged(double value){
+      setState(() {
+        _value = value.floorToDouble();
+        _message = 'set value: $_value';
+      });
+    }
+}
+
+
+
+
+リスト4-16
+class _MyHomePageState extends State<MyHomePage> {
+  String _message;
+
+
+    @override
+    void initState() {
+      _message = 'ok.';
+      super.initState();
+    }
+
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('App Name'),
+          ),
+        body:
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            
+            children: <Widget>[
+              Text(
+              _message,
+                style: TextStyle(fontSize:32.0,
+                color: const Color(0xFF000000),
+                fontWeight: FontWeight.w400,
+                fontFamily: "Roboto"),
+              ),
+    
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+              ),
+    
+              RaisedButton( 
+                onPressed:buttonPressed,
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  "tap me!",
+                    style: TextStyle(fontSize:28.0,
+                    color: const Color(0xFF000000),
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto"),
+                  )
+                )
+            ]
+    
+          ),
+      );
+    }
+
+
+  void buttonPressed(){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => Container (
+        color:Colors.white70,
+        child:Text("Hello!!.", 
+          style: TextStyle(
+            color:Colors.black,
+            fontSize: 28.0,
+            decorationStyle: TextDecorationStyle.solid,
+          ),
+        ),
+      )
+    );
+  } 
+  
+}
+
+
+
+
+リスト4-17
+void buttonPressed(){
+  showDialog(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+        title: Text("Hello!"),
+        content: Text("This is sample."),
+    )
+  );
+} 
+
+
+
+
+リスト4-18
+void buttonPressed(){
+  showDialog(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      title: Text("Hello!"),
+      content: const Text("This is sample."),
+      actions: <Widget>[
+        FlatButton(
+          child: const Text('Cancel'),
+          onPressed: () => Navigator.pop<String>(context, 'Cancel')
+        ),
+        FlatButton(
+          child: const Text('OK'),
+          onPressed: () => Navigator.pop<String>(context, 'OK')
+        )
+      ],
+    ),
+  ).then<void>((value) => resultAlert(value));
+} 
+
+
+void resultAlert(String value) {
+  setState((){
+    _message = 'selected: $value';
+  });
+}
+
+
+
+
+リスト4-19
+void buttonPressed(){
+  showDialog(
+    context: context,
+    builder: (BuildContext context) => SimpleDialog(
+      title: const Text('Select assignment'),
+      children: <Widget>[
+        SimpleDialogOption(
+          onPressed: () => Navigator.pop<String>(context, 'One'),
+          child: const Text('One'),
+        ),
+        SimpleDialogOption(
+          onPressed: () => Navigator.pop<String>(context, 'Two'),
+          child: const Text('Two'),
+        ),
+        SimpleDialogOption(
+          onPressed: () => Navigator.pop<String>(context, 'Three'),
+          child: const Text('Three'),
+        ),
+      ],
+    ),
+  ).then<void>((value) => resultAlert(value));
+} 
+
+
+
+
+リスト4-20
+void buttonPressed(){
+  showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) => Column(
+      children: <Widget>[
+        Text(
+          'This is Modal Bottom Sheet!',
+          style:TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.w300,
+            color:Colors.black,
+          )
+        ),
+        Padding(
+          padding: EdgeInsets.all(10.0),
+        ),
+        FlatButton(
+          onPressed: () => Navigator.pop<String>(context, 'Close'),
+          child: Text('Close',
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.w400,
+              color: Colors.cyan,
+            ),
+          ),
+        )
+      ],
+    ),
+  ).then<void>((value) => resultAlert(value));
+} 
+
+
+
+
+リスト5-1
+class _MyHomePageState extends State<MyHomePage> {
+    String _message;
+    String _stars;
+    int _star = 2;
+
+
+    @override
+    void initState() {
+      _message = 'ok.';
+      super.initState();
+    }
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('My App'),
+          leading: BackButton(
+            color: Colors.white,
+          ),
+
+
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.android),
+              tooltip: 'add star...',
+              onPressed: iconPressedA,
+            ),
+            IconButton(
+              icon: Icon(Icons.favorite),
+              tooltip: 'subtract star...',
+              onPressed: iconPressedB,
+            ),
+          ],
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(30.0),
+            child: Center(
+              child: Text(_stars,
+              style: TextStyle(
+                fontSize: 22.0,
+                color:Colors.white,
+              ),
+              ),
+            ),
+          ),
+        ),
+        body: Center(
+          child: Text(
+            _message,
+            style: const TextStyle(
+              fontSize: 28.0,
+            ),
+          )
+        ),
+      );
+    }
+
+
+    void iconPressedA() {
+      _message = 'tap "android".';
+      _star++;
+      update();
+    }
+    void iconPressedB() {
+      _message = 'tap "favorite".';
+      _star--; 
+      update();
+    }
+
+
+    void update() {
+      _star = _star < 0 ? 0 : _star > 5 ? 5 : _star;
+      setState(() {
+        _stars = '★★★★★☆☆☆☆☆'.substring(5 - _star, 5 - _star + 5) ;
+        _message = _message + '[$_star]';
+      });
+    }
+}
+
+
+
+
+リスト5-2
+class _MyHomePageState extends State<MyHomePage> {
+  String _message;
+  int _index = 0;
+  
+  @override
+  void initState() {
+    _message = 'ok.';
+    super.initState();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('My App'),
+      ),
+      body: Center(
+        child: Text(
+          _message,
+          style: const TextStyle(
+            fontSize: 28.0,
+          ),
+        )
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _index,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            title: Text('bottom'),
+            icon: Icon(Icons.android),
+          ),
+          BottomNavigationBarItem(
+            title: Text('bottom'),
+            icon: Icon(Icons.favorite),
+          ),
+        ],
+        onTap: tapBottomIcon,
+      ),
+    );
+  }
+
+
+  void tapBottomIcon(int value) {
+    var items = ['Android', 'Heart'];
+    setState(() {
+      _index = value;
+      _message = 'you tapped: "' + items[_index] + '".';
+    });
+  }
+}
+
+
+
+
+リスト5-3
+class _MyHomePageState extends State<MyHomePage> {
+  String _message;
+  
+  @override
+    void initState() {
+      _message = 'ok.';
+      super.initState();
+    }
+  //_MyHomePageState(): _message = 'ok.';
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+
+      appBar: AppBar(
+        title: Text('My App'),
+      ),
+
+
+      body: Column(
+        children: <Widget>[
+          Text(
+            _message,
+            style: TextStyle(
+              fontSize: 32.0,
+            ),
+          ),
+          ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(20.0),
+
+
+            children: <Widget>[
+
+
+              Text('First item',
+                style: TextStyle(fontSize: 24.0),
+              ),
+              Text('Second item',
+                style: TextStyle(fontSize: 24.0),
+              ),
+              Text('Third item',
+                style: TextStyle(fontSize: 24.0),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+
+リスト5-4
+class _MyHomePageState extends State<MyHomePage> {
+  String _message;
+  int _index;
+  
+  @override
+    void initState() {
+      _message = 'ok.';
+      super.initState();
+    }
+  //_MyHomePageState(): _message = 'ok.';
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+
+      appBar: AppBar(
+        title: Text('My App'),
+      ),
+
+
+      body: Column(
+        children: <Widget>[
+          Text(
+            _message,
+            style: TextStyle(
+              fontSize: 32.0,
+            ),
+          ),
+          ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(20.0),
+
+
+            children: <Widget>[
+
+
+              ListTile(
+                leading: const Icon(Icons.android),
+                title: const Text('first item'),
+                selected: _index == 1,
+                onTap: () {
+                  _index = 1;
+                  tapTile();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.favorite),
+                title: const Text('second item'),
+                selected: _index == 2,
+                onTap: () {
+                  _index = 2;
+                  tapTile();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.favorite_border),
+                title: const Text('third item'),
+                selected: _index == 3,
+                onTap: () {
+                  _index = 3;
+                  tapTile();
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+
+  void tapTile() {
+    setState(() {
+      _message = 'you tapped: No, $_index.';
+    });
+    
+  }
+}
+
+
+
+
+リスト5-5
+class _MyHomePageState extends State<MyHomePage> {
+ 
+ @override
+ Widget build(BuildContext context) {
+   return Scaffold(
+
+     appBar: AppBar(
+       title: Text('My App'),
+     ),
+
+     body: SingleChildScrollView(
+       child: Column(
+           mainAxisSize: MainAxisSize.min,
+           mainAxisAlignment: MainAxisAlignment.spaceAround,
+           children: <Widget>[
+             Container(
+               color: Colors.blue,
+               height: 120.0,
+               child: const Center(
+                 child: Text('One',
+               style: const TextStyle(fontSize: 32.0)),
+               ),
+             ),
+             Container(
+               color:Colors.white,
+               height: 120.0,
+               child: const Center(
+                 child: Text('Two',
+               style: const TextStyle(fontSize: 32.0)),
+               ),
+             ),
+             Container(
+               color: Colors.blue,
+               height: 120.0,
+               child: const Center(
+                 child: Text('Three',
+               style: const TextStyle(fontSize: 32.0)),
+               ),
+             ),
+             Container(
+               color:Colors.white,
+               height: 120.0,
+               child: const Center(
+                 child: Text('Four',
+               style: const TextStyle(fontSize: 32.0)),
+               ),
+             ),
+             Container(
+               color: Colors.blue,
+               height: 120.0,
+               child: const Center(
+                 child: Text('Five',
+               style: const TextStyle(fontSize: 32.0)),
+               ),
+             ),
+           ],
+         ),
+       ),
+   );
+ }
+
+}
+
+
+
+リスト5-6
+class _MyHomePageState extends State<MyHomePage> {
+  List _items = <Widget>[];
+
+
+  @override
+  void initState() {
+      super.initState();
+      for (var i = 0; i < 10; i++) {
+        var item = Container(
+          color: i.isOdd ? Colors.blue : Colors.white,
+          height: 100.0,
+          child: Center(
+            child: Text(
+              'No, $i',
+              style: const TextStyle(fontSize: 32.0),
+            ),
+          ),
+        );
+        _items.add(item);
+      }
+    }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(
+
+
+        slivers: <Widget>[
+
+
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: 200.0,
+            flexibleSpace: FlexibleSpaceBar(
+              title: const Text('Sliver App Bar'),
+              background: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  Image.network(
+                    'https://github.com/flutter/website/blob/master/_includes/code/layout/lakes/images/lake.jpg?raw=true',
+                    fit:BoxFit.fill,
+                  )
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.android),
+                tooltip: 'icon button',
+                onPressed: (){ print('pressed.'); },
+              ),
+            ]
+          ),
+
+
+          SliverList(
+            delegate: SliverChildListDelegate(_items),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+}
+
+
+
+
+リスト5-7
+class _MyHomePageState extends State<MyHomePage> 
+    with SingleTickerProviderStateMixin {
+
+
+  final List<Tab> tabs = <Tab>[
+    Tab(text: 'One'),
+    Tab(text: 'Two'),
+    Tab(text: 'Three'),
+  ];
+
+
+  TabController _tabController;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(
+      vsync: this, 
+      length: tabs.length
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+
+      appBar: AppBar(
+        title: Text('My App'),
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: tabs,
+        ),
+      ),
+
+
+      body: TabBarView(
+        controller: _tabController,
+        children: tabs.map((Tab tab) {
+          return createTab(tab);
+        }).toList(),
+      ),
+    );
+  }
+
+
+  Widget createTab(Tab tab) {
+    return Center(
+      child: Text(
+        'This is "' + tab.text + '" Tab.',
+        style: const TextStyle(
+          fontSize: 32.0,
+          color: Colors.blue,
+        ),
+        )
+      );
+  }
+}
+
+
+
+
+リスト5-8
+class _MyHomePageState extends State<MyHomePage> {
+  List _items = <Widget>[];
+  String _message;
+  int _tapped = 0;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _message = 'ok';
+    for (var i = 0; i < 5; i++) {
+      var item = ListTile(
+        leading: const Icon(Icons.android),
+        title: Text('No, $i'),
+        onTap: (){
+          _tapped = i;
+          tapItem();
+        }
+      );
+      _items.add(item);
+    }
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flutter App'),
+      ),
+      body: Center(
+        child: Text(
+          _message,
+          style: TextStyle(
+            fontSize: 32.0,
+          ),
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          shrinkWrap: true,
+            padding: const EdgeInsets.all(20.0),
+            children: _items,
+        ),
+      ),
+    );
+  }
+
+
+  void tapItem() {
+    Navigator.pop(context); 
+    setState((){
+      _message = 'tapped:[$_tapped]';
+    });
+  }
+}
+
+
+
+
+リスト5-9
+// import 'package:flutter/material.dart';
+// import 'package:flutter/cupertino.dart';
+
+
+class _MyHomePageState extends State<MyHomePage> {
+  String _message = 'ok';
+  bool _switch = true;
+  double _slider = 0.0;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color.fromARGB(255, 235, 235, 235),
+      appBar: AppBar(
+        title: Text('App Name'),
+        ),
+      body:
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          
+          children: <Widget>[
+            Text(
+            _message,
+              style: TextStyle(fontSize:32.0,
+              color: const Color(0xFF000000),
+              fontWeight: FontWeight.w400,
+              fontFamily: "Roboto"),
+            ),
+  
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+            ),
+
+
+            // スイッチ
+            CupertinoSwitch(
+              value:_switch,
+              onChanged: (bool value){ 
+                print('switch.'); 
+                setState((){
+                  _switch = value;
+                  _message = 'switch: $_switch';
+                });
+              },
+            ),
+
+
+            // スライダー
+            CupertinoSlider(
+              value:_slider,
+              min:0.0,
+              max: 1.0,
+              divisions: 100,
+              onChanged: (double value){
+                print(value);
+                setState((){
+                  _slider = value;
+                  _message = 'slider: $_slider';
+                }); 
+              },
+            ),
+            
+            // ボタン
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: CupertinoButton(
+                borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+                pressedOpacity: 0.5,
+                color: CupertinoColors.activeBlue,
+                onPressed:buttonPressed,
+                padding: EdgeInsets.all(20.0),
+                child: Text(
+                  "tap me!",
+                  style: TextStyle(fontSize:28.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: "Roboto"),
+                )
+              )
+            )
+          ]
+        ),
+
+
+        // ナビゲーションバー
+        bottomNavigationBar: CupertinoNavigationBar(
+          leading: Icon(CupertinoIcons.left_chevron),
+          middle: Text('Navigation'),
+          trailing: IconButton(
+            icon: Icon(CupertinoIcons.right_chevron),
+            onPressed: showPicker),
+        ),
+  
+    );
+  }
+
+
+  // ボタン・イベント
+  void buttonPressed(){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: Text("Hello!"),
+        content: const Text("This is sample."),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            child: const Text('Cancel'),
+            onPressed: () => Navigator.pop<String>(context, 'Cancel')
+          ),
+          CupertinoDialogAction(
+            child: const Text('OK'),
+            onPressed: () => Navigator.pop<String>(context, 'OK')
+          )
+        ],
+      ),
+    ).then<void>((value) => resultAlert(value));
+  } 
+
+
+  // ダイアログアクション・イベント
+  void resultAlert(String value) {
+    setState((){
+      _message = 'selected: $value';
+    });
+  }
+
+
+  // ピッカー表示
+  void showPicker() {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoPicker(
+          backgroundColor: CupertinoColors.black,
+          itemExtent: 50.0,
+          children: <Widget>[
+            Text('One',
+              style: TextStyle(fontSize: 32.0, 
+              fontWeight: FontWeight.w400, 
+              color: Colors.white),),
+            Text('Two',
+              style: TextStyle(fontSize: 32.0, 
+              fontWeight: FontWeight.w400, 
+              color: Colors.white),),
+            Text('Three',
+              style: TextStyle(fontSize: 32.0, 
+              fontWeight: FontWeight.w400, 
+              color: Colors.white),),
+            Text('Four',
+              style: TextStyle(fontSize: 32.0, 
+              fontWeight: FontWeight.w400, 
+              color: Colors.white),),
+            Text('Five',
+              style: TextStyle(fontSize: 32.0, 
+              fontWeight: FontWeight.w400, 
+              color: Colors.white),),
+          ],
+          onSelectedItemChanged: (int value){
+            print('pick $value');
+          },
+        );
+      },
+    );
+  }
+  
+}
+
+
+
+
+リスト6-1
+// import 'package:flutter/gestures.dart';
+
+
+class _MyHomePageState extends State<MyHomePage> {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      appBar: AppBar(
+        title: Text('App Name'),
+        ),
+      body:Center(
+        child: MyRenderBoxWidget(),
+      ),
+    );
+  }
+
+
+}
+
+
+class MyRenderBoxWidget extends SingleChildRenderObjectWidget {
+
+
+  @override
+  RenderObject createRenderObject(BuildContext context){
+    return _MyRenderBox();
+  }
+}
+
+
+class _MyRenderBox extends RenderBox {
+
+
+  @override
+  bool hitTest(HitTestResult result, { @required Offset position }) {
+    return true;
+  }
+
+
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    Canvas c = context.canvas;
+    int dx = offset.dx.toInt();
+    int dy = offset.dy.toInt();
+    Paint p = Paint();
+    p.style = PaintingStyle.fill;
+    p.color = Color.fromARGB(150, 0, 200, 255);
+    Rect r = Rect.fromLTWH(dx + 50.0, dy + 50.0, 150.0, 150.0);
+    c.drawRect(r, p);
+    p.style = PaintingStyle.stroke;
+    p.color = Color.fromARGB(150, 200, 0, 255);
+    p.strokeWidth = 10.0;
+    r = Rect.fromLTWH(dx + 100.0, dy + 100.0, 150.0, 150.0);
+    c.drawRect(r, p);
+  }
+}
+
+
+
+
+リスト6-2
+@override
+void paint(PaintingContext context, Offset offset) {
+  Canvas c = context.canvas;
+  int dx = offset.dx.toInt();
+  int dy = offset.dy.toInt();
+  // 正円の描画
+  Paint p = Paint();
+  p.style = PaintingStyle.fill;
+  p.color = Color.fromARGB(150, 0, 200, 255);
+  Offset ctr = Offset(dx + 100.0, dy + 100.0);
+  c.drawCircle(ctr, 75.0, p);
+  // 楕円１の描画
+  p.style = PaintingStyle.stroke;
+  p.color = Color.fromARGB(150, 200, 0, 255);
+  p.strokeWidth = 10.0;
+  Rect r = Rect.fromLTWH(dx + 100.0, dy + 50.0, 200.0, 150.0);
+  c.drawOval(r, p);
+  // 楕円２の描画
+  r = Rect.fromLTWH(dx + 50.0, dy + 100.0, 150.0, 200.0);
+  c.drawOval(r, p);
+}
+
+
+
+
+リスト6-3
+@override
+void paint(PaintingContext context, Offset offset) {
+  Canvas c = context.canvas;
+  int dx = offset.dx.toInt();
+  int dy = offset.dy.toInt();
+  Paint p = Paint();
+  p.style = PaintingStyle.stroke;
+  p.strokeWidth = 5.0;
+  p.color = Color.fromARGB(150, 0, 200, 255);
+  for (var i = 0; i <= 10; i++) {
+    Rect r = Rect.fromLTRB(
+      dx + 50.0 + 20 * i, dy + 50.0, 
+      dx + 50.0, dy + 250.0 - 20 * i);
+    c.drawLine(r.topLeft, r.bottomRight, p); 
+  }
+}
+
+
+
+
+リスト6-4
+// import 'dart:ui' as ui;
+
+
+@override
+void paint(PaintingContext context, Offset offset) {
+  Canvas c = context.canvas;
+  int dx = offset.dx.toInt();
+  int dy = offset.dy.toInt();
+  
+  ui.ParagraphBuilder builder = ui.ParagraphBuilder(
+      ui.ParagraphStyle(textDirection: TextDirection.ltr),
+    )
+    ..pushStyle(ui.TextStyle(color: Colors.red, fontSize: 48.0))
+    ..addText('Hello! ')
+    ..pushStyle(ui.TextStyle(color: Colors.blue[700], fontSize: 30.0))
+    ..addText('This is a sample of paragraph text. ')
+    ..pushStyle(ui.TextStyle(color: Colors.blue[200], fontSize: 30.0))
+    ..addText('You can draw MULTI-FONT text!');
+  
+  ui.Paragraph paragraph = builder.build()
+  ..layout(ui.ParagraphConstraints(width: 300.0));
+
+
+  Offset off = Offset(dx + 50.0, dy + 50.0);
+  c.drawParagraph(paragraph, off);
+}
+
+
+
+
+リスト6-5
+flutter:
+  assets:
+    - assets/image.jpg
+
+
+
+
+リスト6-6
+// 以下のimportを用意する
+// import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
+// import 'package:flutter/rendering.dart';
+
+
+// import 'dart:typed_data';
+// import 'dart:async';
+// import 'dart:ui' as ui;
+
+
+class MyRenderBoxWidget extends SingleChildRenderObjectWidget {
+
+
+  @override
+  RenderObject createRenderObject(BuildContext context){
+    return _MyRenderBox();
+  }
+}
+
+
+class _MyRenderBox extends RenderBox {
+  ui.Image _img;
+
+
+  @override
+  bool hitTest(HitTestResult result, { @required Offset position }) {
+    return true;
+  }
+
+
+  _MyRenderBox(){
+    loadAssetImage('image.jpg');
+  }
+
+
+  loadAssetImage(String fname) => rootBundle.load("assets/$fname").then( (bd) {
+    Uint8List u8lst = Uint8List.view(bd.buffer);
+    ui.instantiateImageCodec(u8lst).then( (codec) {
+      codec.getNextFrame().then(
+        (frameInfo) {
+          _img = frameInfo.image;
+          markNeedsPaint();
+          print ("_img created: $_img");
+        }
+      );
+    });
+  });
+
+
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    Canvas c = context.canvas;
+    int dx = offset.dx.toInt();
+    int dy = offset.dy.toInt();
+    
+    Paint p = Paint();
+    Offset off = Offset(dx + 50.0, dy + 50.0);
+    if (_img != null) {
+      c.drawImage(_img, off, p);
+      print('draw _img.');
+    } else {
+      print('_img is null.');
+    }
+    
+  }
+
+
+}
+
+
+
+
+リスト6-7
+@override
+void paint(PaintingContext context, Offset offset) {
+  Canvas c = context.canvas;
+  int dx = offset.dx.toInt();
+  int dy = offset.dy.toInt();
+  
+  Paint p = Paint();
+  Offset off = Offset(dx + 50.0, dy + 50.0);
+  Rect r = Rect.fromLTWH(dx + 50.0, dy + 50.0, 200.0, 200.0);
+  if (_img != null) {
+    Rect r0 = Rect.fromLTWH(0.0, 0.0, _img.width.toDouble(), _img.height.toDouble());
+    c.drawImageRect(_img, r0, r, p);
+    print('draw _img.');
+  } else {
+    print('_img is null.');
+  }
+  
+}
+
+
+
+
+リスト6-8
+@override
+void paint(PaintingContext context, Offset offset) {
+  Canvas c = context.canvas;
+  int dx = offset.dx.toInt();
+  int dy = offset.dy.toInt();
+  
+  Path path = Path();
+  Rect r = Rect.fromLTWH(dx + 50.0, dy + 50.0, 75.0, 75.0);
+  path.addOval(r);
+  r = Rect.fromLTWH(dx + 75.0, dy + 75.0, 125.0, 125.0);
+  path.addOval(r);
+  r = Rect.fromLTWH(dx + 125.0, dy + 125.0, 175.0, 175.0);
+  path.addOval(r);
+
+
+  Paint p = Paint();
+  p.color = Color.fromARGB(150, 255, 0, 0);
+  p.style = PaintingStyle.fill;
+  c.drawPath(path, p);
+}
+
+
+
+
+リスト6-9
+// import 'dart:math';
+
+
+@override
+void paint(PaintingContext context, Offset offset) {
+  Canvas c = context.canvas;
+  int dx = offset.dx.toInt();
+  int dy = offset.dy.toInt();
+  
+  Path path = Path();
+  Rect r = Rect.fromLTWH(dx + 50.0, dy + 50.0, 75.0, 75.0);
+  path.addOval(r);
+  r = Rect.fromLTWH(dx + 75.0, dy + 75.0, 125.0, 125.0);
+  path.addOval(r);
+  r = Rect.fromLTWH(dx + 125.0, dy + 125.0, 175.0, 175.0);
+  path.addOval(r);
+
+
+  c.save();
+
+
+  Paint p = Paint();
+  p.color = Color.fromARGB(150, 255, 0, 0);
+  p.style = PaintingStyle.fill;
+  c.drawPath(path, p);
+
+
+  c.translate(0.0, 100.0);
+  p.color = Color.fromARGB(150, 0, 0, 255);
+  c.drawPath(path, p);
+
+
+  p.color = Color.fromARGB(150, 0, 255, 0);
+  c.rotate(-0.5 * pi);
+  c.translate(-600.0, -200.0);
+  c.scale(1 * 1.75);
+  c.drawPath(path, p);
+
+
+  c.restore();
+}
+
+
+
+
+リスト6-10
+@override
+void paint(PaintingContext context, Offset offset) {
+  Canvas c = context.canvas;
+  int dx = offset.dx.toInt();
+  int dy = offset.dy.toInt();
+  
+  Path path = Path();
+  Rect r = Rect.fromLTWH(dx + 50.0, dy + 50.0, 75.0, 75.0);
+  path.addOval(r);
+  r = Rect.fromLTWH(dx + 75.0, dy + 75.0, 125.0, 125.0);
+  path.addOval(r);
+  r = Rect.fromLTWH(dx + 125.0, dy + 125.0, 175.0, 175.0);
+  path.addOval(r);
+
+
+  Paint p = Paint();
+  p.color = Color.fromARGB(150, 255, 0, 0);
+  p.style = PaintingStyle.fill;
+  c.drawPath(path, p);
+
+
+  c.translate(100.0, 100.0);
+  p.color = Color.fromARGB(150, 0, 0, 255);
+  c.drawPath(path, p);
+}
+
+
+
+
+リスト6-11
+@override
+void paint(PaintingContext context, Offset offset) {
+  Canvas c = context.canvas;
+  int dx = offset.dx.toInt();
+  int dy = offset.dy.toInt();
+  
+  c.save();
+  c.clipRect(Rect.fromLTWH(dx + 75.0, dy + 75.0, 150.0, 150.0)); // ☆
+
+
+  Paint p = Paint();
+  p.color = Color.fromARGB(150, 255, 0, 0);
+  p.style = PaintingStyle.fill;
+  Offset off = Offset(dx + 100.0, dy + 100.0);
+  c.drawCircle(off, 50.0, p);
+  p.color = Color.fromARGB(150, 0, 255, 0);
+  off = Offset(dx + 150.0, dy + 150.0);
+  c.drawCircle(off, 75.0, p);
+  p.color = Color.fromARGB(150, 0, 0, 255);
+  off = Offset(dx + 200.0, dy + 200.0);
+  c.drawCircle(off, 100.0, p);
+
+
+  c.restore();
+}
+
+
+
+
+リスト6-12
+@override
+void paint(PaintingContext context, Offset offset) {
+  Canvas c = context.canvas;
+  int dx = offset.dx.toInt();
+  int dy = offset.dy.toInt();
+  
+  Path path = Path();
+  Rect r = Rect.fromLTWH(dx + 50.0, dy + 50.0, 75.0, 75.0);
+  path.addOval(r);
+  r = Rect.fromLTWH(dx + 75.0, dy + 75.0, 125.0, 125.0);
+  path.addOval(r);
+  r = Rect.fromLTWH(dx + 125.0, dy + 125.0, 175.0, 175.0);
+  path.addOval(r);
+
+
+  Paint p = Paint();
+  p.style = PaintingStyle.fill;
+
+
+  c.save();
+  c.clipPath(path);
+
+
+  for (var i = 0; i < 100; i++) {
+    Random rnd = Random();
+    double w = rnd.nextInt(dx + 300).toDouble();
+    double h = rnd.nextInt(dy + 300).toDouble();
+    double cr = rnd.nextInt(50).toDouble();
+    int r = rnd.nextInt(255);
+    int g = rnd.nextInt(255);
+    int b = rnd.nextInt(255);
+    p.color = Color.fromARGB(50, r, g, b);
+    c.drawCircle(Offset(w, h), cr, p);
+  }
+  c.restore();
+}
+
+
+
+
+リスト6-13
+// loadAssetImageにより_imgにイメージが読み込まれていること
+@override
+void paint(PaintingContext context, Offset offset) {
+  Canvas c = context.canvas;
+  int dx = offset.dx.toInt();
+  int dy = offset.dy.toInt();
+
+
+  if (_img != null) {
+    c.drawImage(_img, Offset(dx + 50.0, dy + 50.0), Paint());
+  }
+  c.drawColor(Color.fromARGB(255, 0, 0, 255), BlendMode.multiply);
+}
+
+
+
+
+リスト6-14
+// loadAssetImageにより_imgにイメージが読み込まれていること
+@override
+void paint(PaintingContext context, Offset offset) {
+  Canvas c = context.canvas;
+  int dx = offset.dx.toInt();
+  int dy = offset.dy.toInt();
+
+
+  if (_img != null) {
+    c.drawImage(_img, Offset(dx + 50.0, dy + 50.0), Paint());
+  }
+
+
+  Paint p = Paint();
+  p.style = PaintingStyle.fill;
+
+
+  c.save();
+  Rect r = Rect.fromLTWH(dx + 70.0, dy + 70.0, 130.0, 130.0);
+  c.clipRect(r);
+  c.drawColor(Color.fromARGB(255, 255, 0, 0), BlendMode.darken);
+  c.restore();
+  r = Rect.fromLTWH(dx + 200.0, dy + 200.0, 130.0, 130.0);
+  c.clipRect(r);
+  c.drawColor(Color.fromARGB(255, 0, 255, 0), BlendMode.lighten);
+  c.restore();
+}
+
+
+
+
+リスト6-15
+class _MyRenderBox extends RenderBox {
+  ui.Image _img;
+  Offset _pos;
+  
+  @override
+  bool hitTest(HitTestResult result, { @required Offset position }) {
+    result.add(BoxHitTestEntry(this, position));
+    return true;
+  }
+
+
+  @override
+  void handleEvent(PointerEvent event, HitTestEntry entry) {
+    super.handleEvent(event, entry);
+    _pos = event.position;
+    markNeedsPaint();
+  }
+
+
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    Canvas c = context.canvas;
+    c.drawColor(Colors.black, BlendMode.clear);
+    if (_pos != null) {
+      Paint p = Paint();
+      p.style = PaintingStyle.fill;
+      for (var i = 0; i < 10; i++) {
+        p.color = Color.fromARGB(50, 255, 255, 255);
+        c.drawCircle(_pos, i * 5.0, p);
+      }
+    }
+  }
+
+
+}
+
+
+
+
+リスト6-16
+class _MyHomePageState extends State<MyHomePage> {
+
+
+ @override
+ void initState() {
+   super.initState();
+ }
+
+
+ @override
+ Widget build(BuildContext context) {
+   return Scaffold(
+     backgroundColor: Color.fromARGB(255, 255, 255, 255),
+     appBar: AppBar(
+       title: Text('App Name', style: TextStyle(fontSize: 30.0),),
+       ),
+     body:Center(
+       child: CustomPaint(
+         painter: MyPainter(),
+       ),
+     ),
+   );
+ }
+
+
+}
+
+
+class MyPainter extends CustomPainter{
+
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint p = Paint();
+    p.style = PaintingStyle.fill;
+    p.color = Colors.black;
+    print(size);
+    for (var i = 0; i < 100; i++) {
+      Random rnd = Random();
+      double w = rnd.nextInt(300).toDouble() - 150;
+      double h = rnd.nextInt(300).toDouble() - 150;
+      double cr = rnd.nextInt(50).toDouble();
+      int r = rnd.nextInt(255);
+      int g = rnd.nextInt(255);
+      int b = rnd.nextInt(255);
+      p.color = Color.fromARGB(50, r, g, b);
+      canvas.drawCircle(Offset(w, h), cr, p);
+    }
+
+
+  }
+
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
+
+
+}
+
+
+
+
+リスト6-17
+class _MyHomePageState extends State<MyHomePage> {
+  GlobalKey _homeStateKey = GlobalKey();
+  Offset _pos;
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      appBar: AppBar(
+        title: Text('App Name', style: TextStyle(fontSize: 30.0),),
+        ),
+      body:Center(
+        child: Listener(
+          onPointerDown: _pointerDown,
+          onPointerMove: _pointerMove,
+          child: CustomPaint(
+            key:_homeStateKey,
+            painter: MyPainter(_pos),
+            child: ConstrainedBox(
+              constraints: BoxConstraints.expand(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+
+  void _pointerDown(PointerDownEvent event) {
+    RenderBox referenceBox = _homeStateKey.currentContext.findRenderObject();
+    setState(() {
+      _pos = referenceBox.globalToLocal(event.position);
+    });
+  }
+
+
+  void _pointerMove(PointerMoveEvent event) {
+    RenderBox referenceBox = _homeStateKey.currentContext.findRenderObject();
+    setState(() {
+      _pos = referenceBox.globalToLocal(event.position);
+    });
+  }
+
+
+}
+
+
+class MyPainter extends CustomPainter{
+  Offset _pos;
+
+
+  MyPainter(this._pos);
+
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint p = Paint();
+    p.style = PaintingStyle.fill;
+    p.color = Color.fromARGB(25, 255, 0, 0);
+    if (_pos != null) {
+      for (var i = 0; i < 10; i++) {
+        canvas.drawCircle(_pos, 10.0 * i, p);
+      }
+      canvas.drawCircle(_pos, 50.0, p);
+    }
+  }
+
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
+
+
+}
+
+
+リスト7-1
+import 'package:flutter/material.dart';
+
+
+void main() {
+  runApp(new MyApp());
+}
+class MyApp extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      ……略……
+      ),
+      home: new FirstScreen(),
+    );
+  }
+}
+
+
+class FirstScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: Center(
+        child: Container(
+          child: Text('Home Screen', 
+            style: ……略…… ),
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            title: Text('Home'),
+            icon: Icon(Icons.home),
+          ),
+          BottomNavigationBarItem(
+            title: Text('next'),
+            icon: Icon(Icons.navigate_next),
+          ),
+        ],
+        onTap: (int value) {
+          if (value == 1) 
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SecondScreen()),
+            );
+        },
+      ),
+    );
+  }
+}
+
+
+class SecondScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Next"),
+      ),
+      body: Center(
+        child: Text('Next Screen', 
+          style: ……略…… ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            title: Text('prev'),
+            icon: Icon(Icons.navigate_before),
+          ),
+          BottomNavigationBarItem(
+            title: Text('?'),
+            icon: Icon(Icons.android),
+          ),
+        ],
+        onTap: (int value) {
+          if (value == 0) Navigator.pop(context);
+        },
+      ),
+    );
+  }
+}
+
+
+
+
+リスト7-2
+class FirstScreen extends StatefulWidget {
+
+
+  FirstScreen({Key key}) : super(key: key); // コンストラクタ。今回は特に処理はない
+
+
+  @override
+  _FirstScreenState createState() => new _FirstScreenState();
+
+
+}
+
+
+class _FirstScreenState extends State<FirstScreen> {
+  final _controller = TextEditingController();
+  String _input;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: Column(
+        ……略……,
+        children: <Widget>[
+          Text('Home Screen', 
+            style: ……略…… ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+          ),
+          TextField(
+            controller: _controller,
+            style: ……略……,
+            onChanged: changeField,
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            title: Text('Home'),
+            icon: Icon(Icons.home),
+          ),
+          BottomNavigationBarItem(
+            title: Text('next'),
+            icon: Icon(Icons.navigate_next),
+          ),
+        ],
+        onTap: (int value) {
+          if (value == 1) 
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SecondScreen(_input)),
+            );
+        },
+      ),
+    );
+  }
+
+
+  void changeField(String val) => _input = val;
+}
+
+
+class SecondScreen extends StatelessWidget {
+  final String _value;
+
+
+  SecondScreen(this._value);
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Next"),
+      ),
+      body: Center(
+        child: Text(
+          'you typed: "$_value".',
+          style: ……略……,
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            title: Text('prev'),
+            icon: Icon(Icons.navigate_before),
+          ),
+          BottomNavigationBarItem(
+            title: Text('?'),
+            icon: Icon(Icons.android),
+          ),
+        ],
+        onTap: (int value) {
+          if (value == 0) Navigator.pop(context);
+        },
+      ),
+    );
+  }
+}
+
+
+
+
+リスト7-3
+class MyApp extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      ……略……,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => FirstScreen(),
+        '/second': (context) => SecondScreen('Second'),
+        '/third': (context) => SecondScreen('Third'),
+      },
+    );
+  }
+}
+
+
+class FirstScreen extends StatefulWidget {
+
+
+  FirstScreen({Key key}) : super(key: key);
+
+
+  @override
+  _FirstScreenState createState() => new _FirstScreenState();
+
+
+}
+
+
+class _FirstScreenState extends State<FirstScreen> {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: Center(
+        child:Text('Home Screen',
+          style: ……略……,
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            title: Text('Home'),
+            icon: Icon(Icons.home),
+          ),
+          BottomNavigationBarItem(
+            title: Text('next'),
+            icon: Icon(Icons.navigate_next),
+          ),
+        ],
+        onTap: (int value) {
+          if (value == 1) 
+            Navigator.pushNamed(
+              context,
+              '/second',
+            );
+        },
+      ),
+    );
+  }
+}
+
+
+class SecondScreen extends StatelessWidget {
+  final String _value;
+
+
+  SecondScreen(this._value);
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Next"),
+      ),
+      body: Center(
+        child: Text(
+          '$_value Screen',
+          style: ……略……,
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            title: Text('prev'),
+            icon: Icon(Icons.navigate_before),
+          ),
+          BottomNavigationBarItem(
+            title: Text('?'),
+            icon: Icon(Icons.android),
+          ),
+        ],
+        onTap: (int value) {
+          if (value == 0) Navigator.pop(context);
+          if (value == 1) 
+            Navigator.pushNamed(
+              context,
+              '/third',
+            );
+        },
+      ),
+    );
+  }
+}
+
+
+
+
+リスト7-4
+dependencies:
+ flutter:
+   sdk: flutter
+
+
+ path_provider: any
+
+
+
+
+リスト7-5
+import 'package:flutter/material.dart';
+
+
+import 'dart:async';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+
+
+void main() {
+  runApp(new MyApp());
+}
+
+
+
+
+class MyApp extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      ……略……,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => FirstScreen(),
+      },
+    );
+  }
+}
+
+
+class FirstScreen extends StatefulWidget {
+
+
+  FirstScreen({Key key}) : super(key: key);
+
+
+  @override
+  _FirstScreenState createState() => new _FirstScreenState();
+
+
+}
+
+
+class _FirstScreenState extends State<FirstScreen> {
+  final _controller = TextEditingController();
+  final _fname = 'mydata.txt';
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: Column(
+        children:<Widget>[
+          Text('Home Screen',
+            style: ……略……,
+          ),
+          Padding(padding: EdgeInsets.all(20.0),),
+          TextField(
+            controller: _controller,
+            style: ……略……,
+          )
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            title: Text('Save'),
+            icon: Icon(Icons.save),
+          ),
+          BottomNavigationBarItem(
+            title: Text('Load'),
+            icon: Icon(Icons.open_in_new),
+          ),
+        ],
+        onTap: (int value) {
+          switch (value) {
+            case 0:
+              saveIt(_controller.text);
+              setState(() {
+                _controller.text = '';
+              });
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                    title: Text("saved!"),
+                    content: Text("save message to file."),
+                )
+              );
+              break;
+            case 1:
+              setState(() {
+                loadIt().then((String value){
+                  setState(() {
+                    _controller.text = value;
+                  });
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                        title: Text("loaded!"),
+                        content: Text("load message from file."),
+                    )
+                  );
+                });
+                
+              });
+              break;
+            default:
+              print('no defalut.');
+          }
+          
+        },
+      ),
+    );
+  }
+
+
+  Future<File> getDataFile(String filename) async {
+    final directory = await getApplicationDocumentsDirectory();
+    return File(directory.path + '/' + filename);
+  }
+
+
+  void saveIt(String value) async {
+    getDataFile(_fname).then((File file){
+      file.writeAsString(value);
+    });
+  }
+
+
+  Future<String> loadIt() async {
+    try {
+      final file = await getDataFile(_fname);
+      return file.readAsString();
+    } catch (e) {
+      return null;
+    }
+  }
+}
+
+
+
+
+リスト7-6
+This is sample text.
+これは、サンプルのテキストです。
+
+
+
+
+リスト7-7
+flutter:
+  assets:
+    - assets/image.jpg
+    - assets/data.txt
+
+
+
+
+リスト7-8
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
+
+
+void main() {
+  runApp(new MyApp());
+}
+
+
+class MyApp extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      ……略……,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => FirstScreen(),
+      },
+    );
+  }
+}
+
+
+class FirstScreen extends StatefulWidget {
+
+
+  FirstScreen({Key key}) : super(key: key);
+
+
+  @override
+  _FirstScreenState createState() => new _FirstScreenState();
+
+
+}
+
+
+class _FirstScreenState extends State<FirstScreen> {
+  final _controller = TextEditingController();
+  final _fname = 'assets/data.txt';
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: Column(
+        children:<Widget>[
+          Text('Home Screen',
+            style: ……略……,
+          ),
+          Padding(padding: EdgeInsets.all(20.0),),
+          TextField(
+            controller: _controller,
+            maxLines: 5,
+            style: ……略……,
+          )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.open_in_new),
+        onPressed: () => setState(() {
+          loadIt().then((String value){
+            setState(() {
+              _controller.text = value;
+            });
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                  title: Text("loaded!"),
+                  content: Text("load message from Asset."),
+              )
+            );
+          });
+          
+        }),
+      ),
+    );
+  }
+
+
+  Future<String> getDataAsset(String path) async {
+    return await rootBundle.loadString(path);
+  }
+
+
+  Future<String> loadIt() async {
+    try {
+      return await getDataAsset(_fname);
+    } catch (e) {
+      return null;
+    }
+  }
+}
+
+
+
+
+リスト7-9
+dependencies:
+ flutter:
+   sdk: flutter
+
+
+ path_provider: any
+ shared_preferences: any
+
+
+
+
+リスト7-10
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
+void main() {
+ runApp(new MyApp());
+}
+
+
+class MyApp extends StatelessWidget {
+
+
+ @override
+ Widget build(BuildContext context) {
+   return new MaterialApp(
+     title: 'Generated App',
+     ……略……,
+     initialRoute: '/',
+     routes: {
+       '/': (context) => FirstScreen(),
+     },
+   );
+ }
+}
+
+
+class FirstScreen extends StatefulWidget {
+
+
+ FirstScreen({Key key}) : super(key: key);
+
+
+ @override
+ _FirstScreenState createState() => new _FirstScreenState();
+
+
+}
+
+
+class _FirstScreenState extends State<FirstScreen> {
+ final _controller = TextEditingController();
+ double _r = 0.0;
+ double _g = 0.0;
+ double _b = 0.0;
+
+
+ @override
+ void initState() {
+   super.initState();
+   loadPref();
+ }
+
+
+ @override
+ Widget build(BuildContext context) {
+   return Scaffold(
+     appBar: AppBar(
+       title: Text('Home'),
+     ),
+     body: Container(
+       color: Color.fromARGB(200, _r.toInt(), _g.toInt(), _b.toInt()),
+       child: Column(
+         children: <Widget>[
+           Text('Home Screen',
+             style: ……略……,
+           ),
+           Padding(padding: EdgeInsets.all(20.0),),
+           TextField(
+             controller: _controller,
+             style: ……略……,
+           ),
+           Padding(
+             padding: EdgeInsets.all(10.0),
+           ),
+           Slider(
+             min: 0.0,
+             max: 255.0,
+             value: _r,
+             divisions: 255,
+             onChanged: (double value) {
+               setState(() {
+                 _r = value;
+               });
+             },
+           ),
+           Slider(
+             min: 0.0,
+             max: 255.0,
+             value: _g,
+             divisions: 255,
+             onChanged: (double value) {
+               setState(() {
+                 _g = value;
+               });
+             },
+           ),
+           Slider(
+             min: 0.0,
+             max: 255.0,
+             value: _b,
+             divisions: 255,
+             onChanged: (double value) {
+               setState(() {
+                 _b = value;
+               });
+             },
+           ),
+         ],
+       ),
+     ),
+     floatingActionButton: FloatingActionButton(
+       child: Icon(Icons.open_in_new),
+       onPressed: () {
+         savePref();
+         showDialog(
+           context: context,
+           builder: (BuildContext context) => AlertDialog(
+               title: Text("saved!"),
+               content: Text("save preferences."),
+           )
+         );
+       },
+     ),
+   );
+ }
+
+
+  void loadPref() async {
+    SharedPreferences.getInstance().then(
+      (SharedPreferences prefs){
+        setState((){
+          _r = (prefs.getDouble('r') ?? 0.0);
+          _g = (prefs.getDouble('g') ?? 0.0);
+          _b = (prefs.getDouble('b') ?? 0.0);
+          _controller.text = (prefs.getString('input') ?? '');
+        });
+      }
+    );
+  }
+
+
+ void savePref() async {
+     SharedPreferences.getInstance().then(
+       (SharedPreferences prefs){
+         prefs.setDouble('r', _r);
+         prefs.setDouble('g', _g);
+         prefs.setDouble('b', _b);
+         prefs.setString('input', _controller.text);
+       }
+     );
+ }
+
+
+}
+
+
+
+
+リスト7-11
+dependencies:
+ flutter:
+   sdk: flutter
+
+
+ path_provider: any
+ shared_preferences: any
+ sqflite: any
+
+
+
+
+リスト7-12
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:collection/collection.dart';
+import 'package:path/path.dart';
+
+
+void main() {
+  runApp(new MyApp());
+}
+
+
+class MyApp extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      ……略……,
+      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => FirstScreen(),
+        '/list': (context) => SecondScreen(),
+      },
+    );
+  }
+}
+
+
+// レコード作成画面
+class FirstScreen extends StatefulWidget {
+
+
+  FirstScreen({Key key}) : super(key: key);
+
+
+  @override
+  _FirstScreenState createState() => new _FirstScreenState();
+}
+
+
+class _FirstScreenState extends State<FirstScreen> {
+  final _controllerA = TextEditingController();
+  final _controllerB = TextEditingController();
+  final _controllerC = TextEditingController();
+
+
+  final TextStyle styleA = TextStyle(
+    fontSize: 28.0,
+    color: Colors.black87,
+  );
+  final TextStyle styleB = TextStyle(
+    fontSize: 24.0,
+    color: Colors.black87,
+  );
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children:<Widget>[
+            Text('Home Screen',
+              style: ……略……,
+            ),
+            Text( 'Name:', style: styleB, ),
+            TextField(
+              controller: _controllerA,
+              style: styleA,
+            ),
+            Text( 'Mail:', style: styleB, ),
+            TextField(
+              controller: _controllerB,
+              style: styleA,
+            ),
+            Text( 'Tel:', style: styleB, ),
+            TextField(
+              controller: _controllerC,
+              style: styleA,
+            ),
+            
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            title: Text('add'),
+            icon: Icon(Icons.home),
+          ),
+          BottomNavigationBarItem(
+            title: Text('list'),
+            icon: Icon(Icons.list),
+          ),
+        ],
+        onTap: (int index) {
+          if (index == 1) {
+            Navigator.pushNamed(context, '/list');
+          }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.save),
+        onPressed: () {
+          saveData();
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                title: Text("saved!"),
+                content: Text("insert data  into database."),
+            )
+          );
+        },
+      ),
+    );
+  }
+
+
+  void saveData() async {
+   String dbPath = await getDatabasesPath();
+    String path = join(dbPath, "mydata.db");
+
+
+    String data1 = _controllerA.text;
+    String data2 = _controllerB.text;
+    String data3 = _controllerC.text;
+
+
+    String query = 'INSERT INTO mydata(name, mail, tel) VALUES("$data1", "$data2", "$data3")';
+
+
+    Database database = await openDatabase(path, version: 1,
+      onCreate: (Database db, int version) async {
+        await db.execute(
+          "CREATE TABLE IF NOT EXISTS mydata (id INTEGER PRIMARY KEY, name TEXT, mail TEXT, tel TEXT)");
+      }
+    );
+        
+    await database.transaction((txn) async {
+      int id = await txn.rawInsert(query);
+        print("insert: $id");
+    });
+
+
+    setState(() {
+      _controllerA.text = '';
+      _controllerB.text = '';
+      _controllerC.text = '';
+    });
+  }
+}
+
+
+// テーブル一覧表示画面
+class SecondScreen extends StatefulWidget {
+
+
+  SecondScreen({Key key}) : super(key: key);
+
+
+  @override
+  _SecondScreenState createState() => new _SecondScreenState();
+}
+
+
+class _SecondScreenState extends State<SecondScreen> {
+  List<Widget> _items = <Widget>[];
+
+
+  @override
+  void initState() {
+    super.initState();
+    getItems();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('List'),
+      ),
+      body: ListView(
+        children: _items,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            title: Text('add'),
+            icon: Icon(Icons.home),
+          ),
+          BottomNavigationBarItem(
+            title: Text('list'),
+            icon: Icon(Icons.list),
+          ),
+        ],
+        onTap: (int index) {
+          if (index == 0) {
+            Navigator.pop(context);
+          }
+        },
+      ),
+    );
+  }
+
+
+  void getItems() async {
+    List<Widget> list = <Widget>[];
+    String dbPath = await getDatabasesPath();
+    String path = join(dbPath, "mydata.db");
+
+
+    Database database = await openDatabase(path, version: 1,
+      onCreate: (Database db, int version) async {
+        await db.execute(
+          "CREATE TABLE IF NOT EXISTS mydata (id INTEGER PRIMARY KEY, name TEXT, mail TEXT, tel TEXT)");
+      }
+    );
+
+
+    List<Map> result = await database.rawQuery('SELECT * FROM mydata');
+    for (Map item in result) {
+      list.add(
+        ListTile(
+          title: Text(item['name']),
+          subtitle: Text(item['mail'] + ' ' + item['tel']),
+        )
+      );
+    }
+    setState(() {
+      _items = list;
+    });
+  }
+}
+
+
+
+
+リスト8-1
+  http: "^0.11.3+16"
+  html: "^0.13.3"
+  feedparser: "^0.0.2"
+  url_launcher: "^3.0.3"
+
+
+
+
+リスト8-2
+import 'dart:async';
+import 'package:http/http.dart';
+import 'package:html/dom.dart' as dom;
+import 'package:flutter/material.dart';
+import 'package:feedparser/feedparser.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+
+void main() {
+ runApp(new MyApp());
+}
+
+
+class MyApp extends StatelessWidget {
+
+
+ @override
+ Widget build(BuildContext context) {
+   return new MaterialApp(
+     title: 'Generated App',
+     theme: new ThemeData(
+       primarySwatch: Colors.pink,
+       primaryColor: const Color(0xFFe91e63),
+       accentColor: const Color(0xFFe91e63),
+       canvasColor: const Color(0xFFfafafa),
+     ),
+     home: new RssListPage(),
+   );
+ }
+}
+
+
+// Yahoo RSSの一覧リスト
+class RssListPage extends StatelessWidget {
+ final List<String> names = [
+   '主要ニュース',
+   '国際情勢',
+   '国内の出来事',
+   'IT関係'
+ ];
+ final List<String> links = [
+   'https://news.yahoo.co.jp/pickup/rss.xml',
+   'https://news.yahoo.co.jp/pickup/world/rss.xml',
+   'https://news.yahoo.co.jp/pickup/domestic/rss.xml',
+   'https://news.yahoo.co.jp/pickup/computer/rss.xml'
+ ];
+
+
+ @override
+ Widget build(BuildContext context) {
+   return Scaffold(
+     appBar: AppBar(
+       title: Text('Yahoo! Checker'),
+     ),
+     body: Center(
+       child: ListView(
+         padding: EdgeInsets.all(10.0),
+         children: items(context),
+         ),
+       ),
+     );
+ }
+
+
+ // Listに表示するListTitleのリストを作る
+ List<Widget> items(BuildContext context) {
+   List<Widget> items = [];
+   for (var i = 0;i < names.length;i++) {
+     items.add(
+       ListTile(
+         contentPadding: EdgeInsets.all(10.0),
+         title: Text(names[i],
+           style:TextStyle(fontSize: 24.0),
+         ),
+         onTap: () {
+           Navigator.push(
+           context,
+           MaterialPageRoute(
+             builder: (_) => MyRssPage(
+               title:names[i],
+               url: links[i]
+             ),
+           ),
+         );
+         },
+       )
+     );
+   }
+
+
+   return items;
+ }
+}
+
+
+// RSSのアイテム一覧表示
+class MyRssPage extends StatefulWidget {
+ final String title;
+ final String url;
+
+
+ MyRssPage({@required this.title, @required this.url});
+
+
+  @override
+  _MyRssPageState createState() => new _MyRssPageState(title:title, url:url);
+}
+
+
+class _MyRssPageState extends State<MyRssPage> {
+  final String title;
+  final String url;
+  List<Widget> _items = <Widget>[];
+
+
+  _MyRssPageState({
+    @required this.title,
+    @required this.url
+  }) { getItems(); }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: Center(
+        child: ListView(
+          padding: EdgeInsets.all(10.0),
+          children: _items,
+        ),
+      ),
+    );
+  }
+
+
+  // YahooサイトからRSSを取得し、
+  // ListTitleのListを作成する
+  void getItems() async {
+    List<Widget> list = <Widget>[];
+
+
+    Response res = await get(url);
+    Feed feed = parse(res.body);
+    for (FeedItem item in feed.items) {
+      list.add(ListTile(
+        contentPadding: EdgeInsets.all(10.0),
+        title: Text(
+          item.title,
+          style: TextStyle(
+            fontSize: 24.0,
+          ),
+        ),
+        subtitle: Text(
+          item.pubDate
+        ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ItemDetailsPage(
+                item: item, title:title, url:url
+              ),
+            ),
+          );
+        },
+      ));
+    }
+    // _itemsの更新
+    setState(() {
+      _items = list;
+    });
+  }
+
+
+}
+
+
+// 選択した項目の内容表示
+class ItemDetailsPage extends StatefulWidget {
+  final String title;
+  final String url;
+  final FeedItem item;
+
+
+ ItemDetailsPage({
+    @required this.item,
+    @required this.title,
+    @required this.url
+  });
+
+
+  @override
+  _ItemDetails createState() => new _ItemDetails(item:item);
+}
+
+
+class _ItemDetails extends  State<ItemDetailsPage> {
+  FeedItem item;
+  Widget _widget = Text('wait...',);
+
+
+  _ItemDetails({@required this.item});
+    @override
+    void initState() {
+      super.initState();
+      getItem();
+    }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(item.title),
+      ),
+      body: _widget,
+    );
+  }
+
+
+  // FeedItemの情報からコンテンツを取得し
+  // Cardを作成する
+  void getItem() async {
+    Response res = await get(item.link);
+    dom.Document doc = dom.Document.html(res.body);
+    dom.Element hbody = doc.querySelector('.hbody');
+    dom.Element htitle = doc.querySelector('.newsTitle a');
+    dom.Element newslink = doc.querySelector('.newsLink');
+    print(newslink.attributes['href']);
+    setState(() {
+      _widget = SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  htitle.text,
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight:FontWeight.bold,
+                  ),
+                )
+              ),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  hbody.text,
+                  style:TextStyle(
+                    fontSize: 20.0,
+                  )
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: RaisedButton(
+                  child: Text('続きを読む...',
+                  style: TextStyle(fontSize: 18.0),),
+                  onPressed: () {
+                    launch(newslink.attributes['href']);
+                  },
+
+
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+
+}
+
+
+
+
+リスト8-3
+  image_picker: any
+  simple_permissions: any
+
+
+
+
+リスト8-4
+import 'dart:ui' as ui;
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/rendering.dart';
+import 'package:simple_permissions/simple_permissions.dart';
+
+
+void main() {
+  runApp(new MyApp()); 
+}
+
+
+class MyApp extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      title: 'Generated App',
+      theme: new ThemeData(
+        primarySwatch: Colors.pink,
+        primaryColor: const Color(0xFFe91e63),
+        accentColor: const Color(0xFFe91e63),
+        canvasColor: const Color(0xFFfafafa),
+      ),
+      home: new MyImagePage(),
+    );
+  }
+}
+
+
+class MyImagePage extends StatefulWidget {
+
+
+  @override
+  _MyImagePageState createState() => new _MyImagePageState();
+}
+
+
+class _MyImagePageState extends State<MyImagePage> {
+  File image;
+  GlobalKey _homeStateKey = GlobalKey();
+  List<List<Offset>> strokes = new List<List<Offset>>();
+  MyPainter _painter;
+  ui.Image targetimage;
+  Size mediasize;
+  double _r = 255.0;
+  double _g = 0.0;
+  double _b = 0.0;
+
+
+  _MyImagePageState() {
+    requestPermission();
+  }
+
+
+  // パーミッションの設定
+  void requestPermission() async {
+    await SimplePermissions.requestPermission
+        (Permission.Camera);
+    await SimplePermissions.requestPermission
+        (Permission.WriteExternalStorage);
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    mediasize = MediaQuery.of(context).size;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Canture Image Drawing!'),
+      ),
+      body: Listener(
+        onPointerDown: _pointerDown,
+        onPointerMove: _pointerMove,
+        child: Container(
+          child: CustomPaint(
+            key:_homeStateKey,
+            painter: _painter,
+            child: ConstrainedBox(
+              constraints: BoxConstraints.expand(),
+            ),
+          ),
+        ),
+      ),
+      floatingActionButton: image == null
+        ? FloatingActionButton(
+          onPressed: getImage,
+          tooltip: 'take a picture!',
+          child: Icon(Icons.add_a_photo),
+        )
+        : FloatingActionButton(
+          onPressed: saveImage,
+          tooltip: 'Save Image',
+          child: Icon(Icons.save),
+        ),
+        drawer: Drawer(
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text('Set Color...',
+                  style: TextStyle(fontSize: 20.0),),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Slider(min: 0.0, max: 255.0, value: _r, 
+                    onChanged: sliderR,),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Slider(min: 0.0, max: 255.0, value: _g, 
+                    onChanged: sliderG,),
+                ),                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Slider(min: 0.0, max: 255.0, value: _b, 
+                    onChanged: sliderB,),
+                ),                
+              ],
+            ),
+          ),
+        ),
+    );
+  }
+
+
+  // スライダーの値設定
+  void sliderR(double value) {
+    setState(()=> _r = value);
+  }
+  void sliderG(double value) {
+    setState(()=> _g = value);
+  }
+  void sliderB(double value) {
+    setState(()=> _b = value);
+  }
+
+
+  // MyPainterの作成
+  void createMyPainter(){
+    var strokecolor = Color.fromARGB(200, _r.toInt(), 
+        _g.toInt(), _b.toInt());
+    _painter = MyPainter(targetimage, image, strokes, 
+        mediasize, strokecolor);
+  }
+
+
+  // カメラを起動しイメージを読み込む
+  void getImage() async {
+    File file = await ImagePicker
+        .pickImage(source: ImageSource.camera);
+    image = file;
+    loadImage(image.path);
+  }
+
+
+  // イメージの保存
+  void saveImage() {
+    _painter.saveImage();
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Text("Saved!"),
+          content: Text("save image to file."),
+      )
+    );
+  }
+
+
+  // パスからイメージを読み込みui.Imageを作成する
+  void loadImage(path) async {
+    List<int> byts = await image.readAsBytes();
+    Uint8List u8lst = Uint8List.fromList(byts);
+    ui.instantiateImageCodec(u8lst).then( (codec) {
+      codec.getNextFrame().then(
+        (frameInfo) {
+          targetimage = frameInfo.image;
+          setState(() {
+          createMyPainter();
+        });
+        }
+      );
+    });
+  }
+
+
+  // タップしたときの処理
+  void _pointerDown(PointerDownEvent event) {
+    RenderBox referenceBox = _homeStateKey
+        .currentContext.findRenderObject();
+    strokes.add([referenceBox.globalToLocal(event.position)]);
+    setState(() {
+      createMyPainter();
+    });
+  }
+
+
+  // ドラッグ中の処理
+  void _pointerMove(PointerMoveEvent event) {
+    RenderBox referenceBox = _homeStateKey
+        .currentContext.findRenderObject();
+    strokes.last.add(referenceBox.globalToLocal(event.position));
+    setState(() {
+      createMyPainter();
+    });
+  }
+
+
+}
+
+
+// ペインタークラス
+class MyPainter extends CustomPainter{
+  File image;
+  ui.Image targetimage;
+  Size mediasize;
+  Color strokecolor;
+  var strokes = new List<List<Offset>>();
+  
+  MyPainter(this.targetimage, this.image, this.strokes, 
+      this.mediasize, this.strokecolor);
+
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    mediasize = size;
+    ui.Image im = drawToCanvas();
+    canvas.drawImage(im, Offset(0.0, 0.0), Paint());
+  }
+
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
+
+
+  // 描画イメージをファイルに保存する
+  void saveImage() async {
+    ui.Image img = drawToCanvas();
+    final ByteData bytedata = await img.toByteData
+        (format: ui.ImageByteFormat.png);
+    int epoch = new DateTime.now().millisecondsSinceEpoch;
+    final file = new File(image.parent.path + '/' 
+        + epoch.toString() + '.png');
+    file.writeAsBytes(bytedata.buffer.asUint8List());
+  }
+
+
+  // イメージを描画したui.Imageを返す
+  ui.Image drawToCanvas() {
+    ui.PictureRecorder recorder = ui.PictureRecorder();
+    ui.Canvas canvas = Canvas(recorder);
+
+
+    Paint p1 = Paint();
+    p1.color = Colors.white;
+    canvas.drawColor(Colors.white, BlendMode.color);
+
+
+    if (targetimage != null) {
+      Rect r1 = Rect.fromPoints(Offset(0.0,0.0), 
+        Offset(targetimage.width.toDouble(), 
+        targetimage.height.toDouble()));
+      Rect r2 = Rect.fromPoints(Offset(0.0,0.0), 
+        Offset(mediasize.width, mediasize.height));
+      canvas.drawImageRect(targetimage, r1, r2, p1);
+    }
+
+
+    Paint p2 = new Paint();
+    p2.color = strokecolor;
+    p2.style = PaintingStyle.stroke;
+    p2.strokeWidth = 5.0;
+
+
+    for (var stroke in strokes) {
+      Path strokePath = new Path();
+      strokePath.addPolygon(stroke, false);
+      canvas.drawPath(strokePath, p2);
+    }
+    ui.Picture picture = recorder.endRecording();
+    return picture.toImage(mediasize.width.toInt(), 
+      mediasize.height.toInt());
+  }
+
+
+}
